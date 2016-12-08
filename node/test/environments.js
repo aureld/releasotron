@@ -22,12 +22,11 @@ describe('Environments', function() {
         var getJSON = sinon.stub(Environments, 'getJSON');
         getJSON.returns('1.0.0')
         
-        var version = Environments.findVersion('ipay');
-        
-        expect(Environments.getJSON).to.have.been.calledOnce;
-        expect(Environments.getJSON).to.have.been.calledWith(optionsFixture);
-        expect(version).to.be.equal('1.0.0');
-
+        Environments.findVersion('ipay', function(version){
+            expect(Environments.getJSON).to.have.been.calledOnce;
+            expect(Environments.getJSON).to.have.been.calledWith(optionsFixture);
+            expect(version).to.be.equal('1.0.0');
+        });
         getJSON.restore();
 
     }));

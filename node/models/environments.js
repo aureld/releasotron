@@ -26,7 +26,7 @@ Environments.getJSON = function(options, callback) {
     var port = options.port == 443 ? https : http;
     var req = port.request(options, function(res) {
         var output = '';
-        console.log(options.host + ':' + res.statusCode);
+        
         res.setEncoding('utf8');
 
         res.on('data', function (chunk) {
@@ -63,8 +63,6 @@ Environments.findVersion = function(env, callback) {
             };   
 
            this.getJSON(options,function(statusCode, result) {
-                    console.log("Environments: (" + options.host + ")"
-                     + JSON.stringify(result));
                      callback(result);
                     });
 }

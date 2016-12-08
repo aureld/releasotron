@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
 router.get('/', (req, res, next) => {
-  return res.json({
+  return res.status(200).json({
     healthy: false
   });
 });
