@@ -1,11 +1,14 @@
 const router = require('express').Router();
-var envs = require('../models/Environments');
+var Environments = require('../models/Environments');
 
 /* GET home page. */
 router.get('/', function(reqs, res, next) {
-  envs.findVersions();
-  console.log("version:" + envs.endpoints['ipay'].version);
-  return res.json(envs.endpoints);
+  
+  //fetch ipay
+  var env = 'ipay';
+  var version = Environments.findVersion(env, function(version) {
+    console.log("version(" + env + "):" + version);
+  });
 });
 
 module.exports = router;

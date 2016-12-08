@@ -7,50 +7,24 @@ Environments.endpoints = {
         ipay: {
             host: 'repose-i.test.pci.irdeto.com',
             port: 443,
-            path: '/verifier/version',
-            version: ''
+            path: '/verifier/version'
         },
         tpay: {
             host: 'repose.test.pci.irdeto.com',
             port: 443,
-            path: '/verifier/version',
-            version: ''
+            path: '/verifier/version'
         }
     };
-
-Environments.findVersions = function() {
-    var endpoints = Environments.endpoints;
-    Object.keys(endpoints).forEach(function(key) {
-            var val = endpoints[key];
-            var options = {
-                host: val.host,
-                port: val.port,
-                path: val.path,
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }   
-            };
-            getJSON(options,function(statusCode, result) {
-                    console.log("Environments: (" + options.host + ")" + JSON.stringify(result));
-                    Environments.endpoints[key].version = result
-            });
-        });
-};
-
 
 /**
  * getJSON:  REST get request returning JSON object(s)
  * @param options: http options object
  * @param callback: callback to pass the results JSON object(s) back
  */
-getJSON = function(options, onResult)
-{
-    console.log("Environments::getJSON");
-
-    var prot = options.port == 443 ? https : http;
-    var req = prot.request(options, function(res)
-    {
+Environments.getJSON = function(options, callback) {
+    
+    var port = options.port == 443 ? https : http;
+    var req = port.request(options, function(res) {
         var output = '';
         console.log(options.host + ':' + res.statusCode);
         res.setEncoding('utf8');
@@ -61,7 +35,7 @@ getJSON = function(options, onResult)
 
         res.on('end', function() {
             var obj = JSON.parse(output);
-            onResult(res.statusCode, obj);
+            callback(res.statusCode, obj);
         });
     });
 
@@ -71,5 +45,29 @@ getJSON = function(options, onResult)
 
     req.end();
 };
+
+/**
+ * findVersion:  returns the version deployed in the specidied environment
+ * @param env: environment name (ipay,tpay,spay...)
+ */
+Environments.findVersion = function(env, callback) {
+            var val = this.endpoints[env];
+            var options = {
+                host: val.host,
+                port: val.port,
+                path: val.path,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };   
+
+           this.getJSON(options,function(statusCode, result) {
+                    console.log("Environments: (" + options.host + ")"
+                     + JSON.stringify(result));
+                     callback(result);
+                    });
+}
+
 
 module.exports = Environments;
