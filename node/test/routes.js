@@ -15,17 +15,14 @@ test('GET /health', t => {
       t.end();
     } else {
       t.ok(res.body, 'It should have a response body');
-      t.equals(res.body.healthy, true, 'It should return a healthy parameter and it should be true');
       t.end();
     }
   });
 });
 
-// We describe our test and send a GET request to the /docker path, which we
-// expect to return a JSON response with a docker property that equals 'rocks!'
-test('GET /docker', t => {
+test('GET /', t => {
   api
-  .get('/docker')
+  .get('/')
   .expect('Content-type', /json/)
   .expect(200)
   .end((err, res) => {
@@ -34,7 +31,6 @@ test('GET /docker', t => {
       t.end();
     } else {
       t.ok(res.body, 'It should have a response body');
-      t.equals(res.body.docker, 'rocks!', 'It should return a docker parameter with value rocks!');
       t.end();
     }
   });

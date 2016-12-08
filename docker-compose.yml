@@ -1,19 +1,13 @@
+version: '2'
+services:
 
-node:
-  build: ./node
-  links:
-    - redis
-  ports:
-    - "8080"
+  node:
+    build: ./node
+    networks:
+      - front-tier
 
-redis:
-  image: redis
-  ports:
-    - "6379"
 
-nginx:
-  image: jwilder/nginx-proxy
-  links:
-    - node:node
-  ports:
-    - "80:80"
+networks:
+  front-tier:
+    driver: bridge
+  

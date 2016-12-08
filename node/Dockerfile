@@ -10,16 +10,17 @@ WORKDIR /usr/src/app
 
 #add dependencies
 COPY package.json /usr/src/app
-RUN npm install --production
+RUN npm install	
 
-RUN npm install -g pm2
+#RUN npm install -g pm2
 
 
 #add sources 
 ADD . .
 
 # Expose port
-EXPOSE  4500
+EXPOSE  3000
 
 # Run app in production mode using pm2
-CMD ["pm2", "start", "processes.json", "--no-daemon"]
+#CMD ["pm2", "start", "processes.json", "--no-daemon"]
+CMD ["npm", "start"]
