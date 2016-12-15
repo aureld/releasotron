@@ -4,32 +4,27 @@ var Environments = require('../models/Environments');
 /* GET home page. */
 router.get('/', function(reqs, res, next) {
   
-  //var versions = [];
+  var envs = Environments.envs;
+  var total = envs.length;
+  var count = 0;
+  var versions = new Array(envs.length);
 
-  //traverse the list of envs and display the version
-  var endpoints = Environments.endpoints;
-  console.log(endpoints);
-  var versions = endpoints.map(Environments.findVersion(key, function(v) {
-                                                versions.push({
-                                                  environment: key,
-                                                  version: v.version
-                                                });
-                                            }));
-console.log(versions);
+  for(var i = 0; i < total; i++){
+      (function(item){
+          Environments.findVersion(envs[item].name, function(response) {
+              versions.push(JSON.stringify(response));
+              count++;
+              if (count > total - 1) done();
+          });
+      }(i));
+  }
 
- /* Object.keys(endpoints).forEach(function(key) {
-    Environments.findVersion(key, function(v) {
-      versions.push({
-        environment: key,
-        version: v.version
-      });
-     
-    });
-    console.log(versions);
-  });
-//console.log(versions);
-res.send(versions);
-*/
+  function done() {
+    res.render('index', {title: 'Release-o-tron!'});
+  };  
 });
+
+
+
 
 module.exports = router;

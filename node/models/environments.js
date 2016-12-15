@@ -3,18 +3,53 @@ var https = require('https');
 
 var Environments = {};
 
-Environments.endpoints = {
-        ipay: {
+Environments.envs = [
+        {   name: "ipay",
             host: 'repose-i.test.pci.irdeto.com',
             port: 443,
             path: '/verifier/version'
         },
-        tpay: {
+        {   name: "tpay",
             host: 'repose.test.pci.irdeto.com',
             port: 443,
             path: '/verifier/version'
         }
-    };
+    ];
+
+
+/**
+ * findVersion:  returns the version deployed in the specidied environment
+ * @param name: environment name (ipay,tpay,spay...)
+ */
+Environments.findVersion = function(name, callback) {
+
+            var val = find(this.envs, function(x) {return x.name == name;});
+            var options = {
+                host: val.host,
+                port: val.port,
+                path: val.path,
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };   
+
+           this.getJSON(options,function(options, result) {
+                     callback(result);
+                    });
+}
+
+/**
+ * findEnvironment:  returns the environment parameters used to query the version
+ * @param name: environment name (ipay,tpay,spay...)
+ */
+Environments.findEnvironment = function(name, callback) {
+
+            val = find(this.envs, function(x) {return x.name == name;});
+            callback(val);
+}
+
+
 
 /**
  * getJSON:  REST get request returning JSON object(s)
@@ -46,26 +81,12 @@ Environments.getJSON = function(options, callback) {
     req.end();
 };
 
-/**
- * findVersion:  returns the version deployed in the specidied environment
- * @param env: environment name (ipay,tpay,spay...)
- */
-Environments.findVersion = function(env, callback) {
-            var val = this.endpoints[env];
-            var options = {
-                host: val.host,
-                port: val.port,
-                path: val.path,
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            };   
-
-           this.getJSON(options,function(statusCode, result) {
-                     callback(result);
-                    });
+// find an item in a list
+var find = function(items, f) {
+  for (var i=0; i < items.length; i++) {
+    var item = items[i];
+    if (f(item)) return item;
+  };
 }
-
 
 module.exports = Environments;

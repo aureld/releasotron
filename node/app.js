@@ -17,6 +17,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.set('views', __dirname + '/views')
+app.set('view engine', 'jade')
+
 app.use('/', index);
 app.use('/health', health);
 app.use('/environments',environments);

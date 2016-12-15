@@ -34,23 +34,26 @@ describe('Routes', function() {
         .end((err,res) => {
           res.should.have.status(200);
           res.should.not.be.empty;
-           done();
+          done();
         });
     });
   });
   describe('GET /environments/ipay', function() {
-    it('should be accessible.', function(done) {
+    it('should return a value.', function(done) {
       chai.request(server)
         .get('/environments/ipay')
         .end((err,res) => {
           res.should.be.a('object');
+          res.body.should.have.property('name');
           res.body.should.have.property('host');
+          res.body.should.have.property('port');
+          res.body.should.have.property('path');
           done();
         });
     });
   });
   describe('GET /environments/ipay/version', function() {
-    it('should be accessible.', function(done) {
+    it('should return a version.', function(done) {
       chai.request(server)
         .get('/environments/ipay/version')
         .end((err,res) => {
