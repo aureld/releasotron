@@ -2,19 +2,7 @@ var http = require('http');
 var https = require('https');
 
 var Environments = {};
-
-Environments.envs = [
-        {   name: "ipay",
-            host: 'repose-i.test.pci.irdeto.com',
-            port: 443,
-            path: '/verifier/version'
-        },
-        {   name: "tpay",
-            host: 'repose.test.pci.irdeto.com',
-            port: 443,
-            path: '/verifier/version'
-        }
-    ];
+Environments.envs = require("../config/environments.json");
 
 
 /**

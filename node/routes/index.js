@@ -7,12 +7,12 @@ router.get('/', function(reqs, res, next) {
   var envs = Environments.envs;
   var total = envs.length;
   var count = 0;
-  var versions = new Array(envs.length);
+  var versions = [];//new Array(envs.length);
 
   for(var i = 0; i < total; i++){
       (function(item){
           Environments.findVersion(envs[item].name, function(response) {
-              versions.push(JSON.stringify(response));
+              versions.push({name: envs[item].name, version: response.version});
               count++;
               if (count > total - 1) done();
           });
@@ -20,7 +20,8 @@ router.get('/', function(reqs, res, next) {
   }
 
   function done() {
-    res.render('index', {title: 'Release-o-tron!'});
+      console.log(versions)
+      res.render('index', {environments: versions});
   };  
 });
 

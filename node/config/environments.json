@@ -1,0 +1,32 @@
+[
+    {   "name" : "ipay",
+        "host" : "repose-i.test.pci.irdeto.com",
+        "port" : 443,
+        "path" : "/verifier/version"
+    },
+    {   "name" : "tpay",
+        "host" : "repose.test.pci.irdeto.com",
+        "port" : 443,
+        "path" : "/verifier/version"
+    },
+    {   "name" : "spay",
+        "host" : "repose.stage.pci.irdeto.com",
+        "port" : 443,
+        "path" : "/verifier/version"
+    },
+    {   "name" : "lpay",
+        "host" : "repose.live.pci.irdeto.com",
+        "port" : 443,
+        "path" : "/verifier/version"
+    },
+    {   "name" : "lrpay",
+        "host" : "v.wallet.payu.ru",
+        "port" : 443,
+        "path" : "/verifier/version"
+    },
+    {   "name" : "dolcmgc",
+        "host" : "diversifier.dol.pci.irdeto.com",
+        "port" : 443,
+        "path" : "/diversifier/version"
+    }
+]

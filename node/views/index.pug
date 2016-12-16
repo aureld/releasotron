@@ -1,0 +1,22 @@
+extends layout
+
+mixin env-tile(env)
+    .col-md-4
+        .panel.panel-primary
+            .panel-heading
+                h5.panel-title= env.name
+            .panel-body= env.version
+            .panel-footer
+                .btn.btn-default.btn-sm.disabled Promote
+
+
+block content
+    div.container
+        div.starter-template
+            h1 Release-o-tron
+            p.lead Here's what's currently deployed:
+            for env in environments
+                +env-tile(env)
+
+
+        
