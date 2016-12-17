@@ -4,18 +4,39 @@ var https = require('https');
 var Environments = {};
 Environments.envs = require("../config/environments.json");
 
+Environments.updateVersions = function (callback) {
+
+    var envs = Environments.envs;
+    var total = envs.length;
+    var count = 0;
+
+    for(var i = 0; i < total; i++){ // for each environment
+        (function(item){
+            var components = envs[item].components;
+            for(var j = 0; j < components.length; j++){ // for each component
+                    Environments.getVersion(components[j], function(response) {});
+            };
+            count++;
+            if (count > total - 1) done(); //to make sure we wait until the end to continue
+        }(i));
+    }
+
+    function done() {
+        callback(envs);
+    };
+}
+
 
 /**
- * findVersion:  returns the version deployed in the specidied environment
- * @param name: environment name (ipay,tpay,spay...)
+ * getVersion:  returns the version deployed for the specified component/env
+ * @param component: component object
  */
-Environments.findVersion = function(name, callback) {
+Environments.getVersion = function(component, callback) {
 
-            var val = find(this.envs, function(x) {return x.name == name;});
             var options = {
-                host: val.host,
-                port: val.port,
-                path: val.path,
+                host: component.host,
+                port: component.port,
+                path: component.path,
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -23,9 +44,11 @@ Environments.findVersion = function(name, callback) {
             };   
 
            this.getJSON(options,function(options, result) {
-                     callback(result);
+                     component.version = result.version;
+                     callback(component);
                     });
 }
+
 
 /**
  * findEnvironment:  returns the environment parameters used to query the version

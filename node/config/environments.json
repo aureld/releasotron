@@ -1,32 +1,96 @@
 [
     {   "name" : "ipay",
-        "host" : "repose-i.test.pci.irdeto.com",
-        "port" : 443,
-        "path" : "/verifier/version"
+        "components": [
+            {
+                "name" : "verifier",
+                "path" : "/verifier/version",
+                "version" : "",
+                "host" : "repose-i.test.pci.irdeto.com",
+                "port" : 443
+            },
+            {
+                "name" : "diversifier",
+                "path" : "/diversifier/version",
+                "version" : "",
+                "host" : "repose-i.test.pci.irdeto.com",
+                "port" : 443
+            }
+            ]  
     },
     {   "name" : "tpay",
-        "host" : "repose.test.pci.irdeto.com",
-        "port" : 443,
-        "path" : "/verifier/version"
+         "components": [
+             {
+                "name" : "verifier",
+                "path" : "/verifier/version",
+                "version" : "",
+                "host" : "repose.test.pci.irdeto.com",
+                "port" : 443
+            },
+            {
+                "name" : "diversifier",
+                "path" : "/diversifier/version",
+                "version" : "",
+                "host" : "repose.test.pci.irdeto.com",
+                "port" : 443
+            }
+            ]  
     },
     {   "name" : "spay",
-        "host" : "repose.stage.pci.irdeto.com",
-        "port" : 443,
-        "path" : "/verifier/version"
+        "components": [
+             {
+                "name" : "verifier",
+                "path" : "/verifier/version",
+                "version" : "",
+                "host" : "repose.stage.pci.irdeto.com",
+                "port" : 443
+            },
+            {
+                "name" : "diversifier",
+                "path" : "/diversifier/version",
+                "version" : "",
+                "host" : "repose.stage.pci.irdeto.com",
+                "port" : 443
+            }
+            ]  
     },
     {   "name" : "lpay",
-        "host" : "repose.live.pci.irdeto.com",
-        "port" : 443,
-        "path" : "/verifier/version"
+        "components": [
+             {
+                "name" : "verifier",
+                "path" : "/verifier/version",
+                "version" : "",
+                "host" : "repose.live.pci.irdeto.com",
+                "port" : 443
+            },
+            {
+                "name" : "diversifier",
+                "path" : "/diversifier/version",
+                "version" : "",
+                "host" : "repose.live.pci.irdeto.com",
+                "port" : 443
+            }
+            ]  
     },
     {   "name" : "lrpay",
-        "host" : "v.wallet.payu.ru",
-        "port" : 443,
-        "path" : "/verifier/version"
+        "components": [
+             {
+                "name" : "verifier",
+                "path" : "/verifier/version",
+                "version" : "",
+                "host" : "v.wallet.payu.ru",
+                "port" : 443
+            }
+            ]  
     },
     {   "name" : "dolcmgc",
-        "host" : "diversifier.dol.pci.irdeto.com",
-        "port" : 443,
-        "path" : "/diversifier/version"
+        "components": [
+            {
+                "name" : "diversifier",
+                "path" : "/diversifier/version",
+                "version" : "",
+                "host" : "diversifier.dol.pci.irdeto.com",
+                "port" : 443
+            }
+            ]  
     }
 ]
